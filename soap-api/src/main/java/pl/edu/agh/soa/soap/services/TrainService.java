@@ -3,8 +3,8 @@ package pl.edu.agh.soa.soap.services;
 import lombok.extern.slf4j.Slf4j;
 import org.jboss.annotation.security.SecurityDomain;
 import org.jboss.ws.api.annotation.WebContext;
-import pl.edu.agh.soa.soap.model.Train;
-import pl.edu.agh.soa.soap.repository.TrainRepository;
+import pl.edu.agh.soa.model.Train;
+import pl.edu.agh.soa.repository.TrainRepository;
 
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.PermitAll;
@@ -17,11 +17,8 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
 
 import static javax.jws.soap.SOAPBinding.*;
 

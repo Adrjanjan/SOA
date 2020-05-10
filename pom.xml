@@ -18,9 +18,11 @@
     </licenses>
     <modules>
         <module>soap-api</module>
-        <module>soa-web</module>
+        <module>rest-api</module>
         <module>soa-ear</module>
         <module>soap-connector</module>
+        <module>rest-connector</module>
+        <module>soa-model</module>
     </modules>
 
     <properties>

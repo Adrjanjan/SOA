@@ -1,8 +1,8 @@
-package pl.edu.agh.soa.soap.repository;
+package pl.edu.agh.soa.repository;
 
 import lombok.extern.slf4j.Slf4j;
-import pl.edu.agh.soa.soap.model.RailwayCarriage;
-import pl.edu.agh.soa.soap.model.Train;
+import pl.edu.agh.soa.model.RailwayCarriage;
+import pl.edu.agh.soa.model.Train;
 
 import javax.ejb.Stateful;
 import java.util.*;

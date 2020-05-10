@@ -1,9 +1,11 @@
-package pl.edu.agh.soa.soap.repository;
+package pl.edu.agh.soa.repository;
 
-import pl.edu.agh.soa.soap.model.Train;
+import pl.edu.agh.soa.model.Train;
 
+import javax.ejb.Local;
 import java.util.List;
 
+@Local
 public interface TrainRepository {
 
     List<Train> allTrains();

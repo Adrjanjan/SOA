@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.soap.model;
+package pl.edu.agh.soa.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
