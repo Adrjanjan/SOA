@@ -4,6 +4,7 @@ import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import pl.edu.agh.soa.authorization.JWTAuthorization;
 import pl.edu.agh.soa.model.Train;
+import pl.edu.agh.soa.protobuf.CarriagesProto;
 import pl.edu.agh.soa.repository.TrainRepository;
 
 import javax.inject.Inject;
@@ -93,7 +94,7 @@ public class TrainServices {
     })
     @ApiImplicitParam(name="Authorization", value = "Access Token", required = true, paramType = "header", dataTypeClass = String.class)
     public Response editTrain(@PathParam("id") long id, Train newTrain) {
-        if(trainRepository.editTrain(id, newTrain) == null){
+        if ( trainRepository.editTrain(id, newTrain) == null ) {
             return Response.status(Response.Status.NOT_FOUND)
                     .build();
         }
@@ -126,11 +127,9 @@ public class TrainServices {
     @Path("/{id}/logo")
     @Produces("image/png")
     @ApiOperation("Return train logo by id")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "Logo found"),
+    @ApiResponses({ @ApiResponse(code = 200, message = "Logo found"),
             @ApiResponse(code = 404, message = "Student with this id is not found or logo is not found"),
-            @ApiResponse(code = 500, message = "Server error, try later")
-    })
+            @ApiResponse(code = 500, message = "Server error, try later") })
     public Response getTrainIcon(@PathParam("id") long id) {
         final var train = trainRepository.getTrainById(id);
         if ( train == null ) {
@@ -153,5 +152,30 @@ public class TrainServices {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .build();
         }
+    }
+
+    @GET
+    @Path("/{id}/carriages")
+    @Produces("application/protobuf")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Ok"),
+            @ApiResponse(code = 404, message = "Train not found")
+    })
+    public Response getCarriages(@PathParam("id") long id) {
+        final var train = trainRepository.getTrainById(id);
+        if ( train == null || train.getCarriages() == null ) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .build();
+        }
+        var carriages = train.getCarriages();
+        var carriagesBuilder = CarriagesProto.Carriages.newBuilder();
+        carriages.forEach(carriage -> carriagesBuilder.addCarriages(CarriagesProto.RailwayCarriage.newBuilder()
+                .setId(carriage.getId())
+                .setRegistrationNumber(carriage.getRegistrationNumber())
+                .setAvailable(carriage.isAvailable())));
+
+        var carriagesProtoBuf = carriagesBuilder.build();
+        return Response.ok(carriagesProtoBuf)
+                .build();
     }
 }

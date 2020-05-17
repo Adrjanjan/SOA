@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package pl.edu.agh.soa;
+
+option java_package = "pl.edu.agh.soa.protobuf";
+option java_outer_classname = "CarriagesProto";
+
+message Carriages {
+    repeated RailwayCarriage carriages = 1;
+}
+
+message RailwayCarriage {
+    int64 id = 1;
+
+    string registrationNumber = 2;
+
+    bool available = 3;
+}

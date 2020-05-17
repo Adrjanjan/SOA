@@ -1,26 +1,21 @@
 package pl.edu.agh.soa.model;
 
-import lombok.*;
+import java.util.List;
 
 import javax.xml.bind.annotation.*;
-import java.util.List;
+
+import lombok.*;
 
 @Data
 @Builder
 @ToString
-@XmlRootElement
 @NoArgsConstructor
 @AllArgsConstructor
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Train {
 
-    @XmlElement(name = "id")
     private long id;
 
-    @XmlElementWrapper(name = "carriages")
-    @XmlElement(name = "carriages")
     private List<RailwayCarriage> carriages;
 
-    @XmlElement(name = "logoPath")
     private String logoPath;
 }

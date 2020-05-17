@@ -9,7 +9,7 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>ajanakiewicz-zad-1</artifactId>
+    <artifactId>ajanakiewicz-zad-2</artifactId>
     <packaging>ear</packaging>
 
     <name>soa: EAR Module</name>

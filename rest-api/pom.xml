@@ -24,18 +24,15 @@
     </licenses>
 
     <dependencies>
-
-        <dependency>
-            <groupId>pl.edu.agh.soa</groupId>
-            <artifactId>soap-api</artifactId>
-            <type>ejb</type>
-            <scope>provided</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>jaxrs-api</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson-provider</artifactId>
+            <version>3.11.2.Final</version>
         </dependency>
 
         <dependency>
@@ -76,8 +73,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-
+        
         <!--Protocol Buffers-->
         <dependency>
             <groupId>com.google.protobuf</groupId>
@@ -102,6 +98,13 @@
             <version>1.14</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>pl.edu.agh.soa</groupId>
+            <artifactId>soa-model</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -177,6 +180,19 @@
                         </replacement>
                     </replacements>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.os72</groupId>
+                <artifactId>protoc-jar-maven-plugin</artifactId>
+                <version>3.11.4</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -45,7 +45,7 @@ public class InMemoryTrainRepositoryImpl implements TrainRepository {
 
     @Override
     public Train editTrain(long id, Train newTrain) {
-        log.error("Edit train with id: " + id);
+        log.info("Edit train with id: " + id);
         if(trains.get(id) == null){
             return null;
         }
