@@ -24,6 +24,6 @@ public class RailwayCarriage {
     @XmlElement(name = "registrationNumber")
     private String registrationNumber;
 
-    @XmlElement(name = "isAvailable")
-    private boolean isAvailable;
+    @XmlElement(name = "available")
+    private boolean available;
 }

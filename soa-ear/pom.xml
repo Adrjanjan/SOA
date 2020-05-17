@@ -28,7 +28,7 @@
         <!-- Depend on the ejb module and war so that we can package them -->
         <dependency>
             <groupId>pl.edu.agh.soa</groupId>
-            <artifactId>soa-web</artifactId>
+            <artifactId>rest-api</artifactId>
             <type>war</type>
         </dependency>
         <dependency>
@@ -63,6 +63,7 @@
                         are in easy way to package any libraries needed in the ear, and automatically 
                         have any modules (EJB-JARs and WARs) use them -->
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <!--suppress UnresolvedMavenProperty -->
                     <outputFileNameMapping>@{artifactId}@.@{extension}@</outputFileNameMapping>
                 </configuration>
 

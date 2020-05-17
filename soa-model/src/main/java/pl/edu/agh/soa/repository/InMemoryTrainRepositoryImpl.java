@@ -13,7 +13,7 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 public class InMemoryTrainRepositoryImpl implements TrainRepository {
 
-    private Map<Long, Train> trains = new HashMap<>();
+    private static final Map<Long, Train> trains = new HashMap<>();
 
     @Override
     public List<Train> allTrains() {
@@ -45,6 +45,10 @@ public class InMemoryTrainRepositoryImpl implements TrainRepository {
 
     @Override
     public Train editTrain(long id, Train newTrain) {
+        log.error("Edit train with id: " + id);
+        if(trains.get(id) == null){
+            return null;
+        }
         trains.put(id, newTrain);
         return newTrain;
     }
@@ -52,17 +56,17 @@ public class InMemoryTrainRepositoryImpl implements TrainRepository {
     public void mockData() {
         RailwayCarriage c1 = RailwayCarriage.builder()
                 .id(1L)
-                .isAvailable(false)
+                .available(false)
                 .registrationNumber("RC1")
                 .build();
         RailwayCarriage c2 = RailwayCarriage.builder()
                 .id(2L)
-                .isAvailable(false)
+                .available(false)
                 .registrationNumber("RC2")
                 .build();
         RailwayCarriage c3 = RailwayCarriage.builder()
                 .id(3L)
-                .isAvailable(false)
+                .available(false)
                 .registrationNumber("RC3")
                 .build();
         Train t1 = Train.builder()
@@ -71,5 +75,10 @@ public class InMemoryTrainRepositoryImpl implements TrainRepository {
                 .carriages(Arrays.asList(c1, c2, c3))
                 .build();
         trains.put(1L, t1);
+    }
+
+    @Override
+    public void deleteTrain(long id) {
+        trains.remove(id);
     }
 }

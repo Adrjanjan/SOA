@@ -24,7 +24,7 @@ public class ApiConsumer {
         System.out.println("Train id: " + train.getId());
         System.out.println("Train has carriages with following ids: ");
         train.getCarriages()
-                .getCarriage()
+                .getCarriages()
                 .stream()
                 .map(RailwayCarriage::getId)
                 .forEach(System.out::println);
@@ -60,17 +60,17 @@ public class ApiConsumer {
     private static void addTrain(TrainService trainService) {
         var c4 = new RailwayCarriage();
         c4.setId(4L);
-        c4.setIsAvailable(false);
+        c4.setAvailable(false);
         c4.setRegistrationNumber("RC4");
 
         var c5 = new RailwayCarriage();
         c5.setId(5L);
-        c5.setIsAvailable(false);
+        c5.setAvailable(false);
         c5.setRegistrationNumber("RC5");
 
         var c6 = new RailwayCarriage();
         c5.setId(6L);
-        c5.setIsAvailable(false);
+        c5.setAvailable(false);
         c5.setRegistrationNumber("RC6");
 
         Train t1 = new Train();
@@ -78,13 +78,13 @@ public class ApiConsumer {
         t1.setLogoPath("logo.png");
         t1.setCarriages(new Train.Carriages());
         t1.getCarriages()
-                .getCarriage()
+                .getCarriages()
                 .add(c4);
         t1.getCarriages()
-                .getCarriage()
+                .getCarriages()
                 .add(c5);
         t1.getCarriages()
-                .getCarriage()
+                .getCarriages()
                 .add(c6);
         trainService.addTrain(5L, t1);
     }

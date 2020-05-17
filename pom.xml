@@ -17,12 +17,12 @@
         </license>
     </licenses>
     <modules>
+        <module>soa-model</module>
         <module>soap-api</module>
         <module>rest-api</module>
         <module>soa-ear</module>
         <module>soap-connector</module>
         <module>rest-connector</module>
-        <module>soa-model</module>
     </modules>
 
     <properties>
@@ -64,7 +64,7 @@
                 ourselves in every module -->
             <dependency>
                 <groupId>pl.edu.agh.soa</groupId>
-                <artifactId>soa-web</artifactId>
+                <artifactId>rest-api</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>
                 <scope>compile</scope>

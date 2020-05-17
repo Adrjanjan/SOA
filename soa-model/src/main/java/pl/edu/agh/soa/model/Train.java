@@ -20,7 +20,7 @@ public class Train {
     private long id;
 
     @XmlElementWrapper(name = "carriages")
-    @XmlElement(name = "carriage")
+    @XmlElement(name = "carriages")
     private List<RailwayCarriage> carriages;
 
     @XmlElement(name = "logoPath")

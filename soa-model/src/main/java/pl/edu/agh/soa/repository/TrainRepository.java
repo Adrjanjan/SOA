@@ -14,4 +14,5 @@ public interface TrainRepository {
     List<Train> getTrainsByNumberOfCarriages(int numOfCarriages);
     Train editTrain(long id, Train newTrain);
     void mockData();
+    void deleteTrain(long id);
 }
