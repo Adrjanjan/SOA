@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ResponseHeader;
 import lombok.extern.slf4j.Slf4j;
 import pl.edu.agh.soa.model.User;
-import pl.edu.agh.soa.repository.UserRepository;
+import pl.edu.agh.soa.dao.UserDao;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -28,7 +28,7 @@ public class AuthorizationService {
     private KeyGenerator keyGenerator;
 
     @Inject
-    UserRepository userRepository;
+    UserDao userDao;
 
     @POST
     @Path("/login")
@@ -61,7 +61,7 @@ public class AuthorizationService {
     @Path("/signup")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response create(@FormParam("login") String login, @FormParam("password") String password) {
-        userRepository.addUser(User.builder()
+        userDao.addUser(User.builder()
                 .login(login)
                 .hashedPassword(PasswordUtils.hash(password))
                 .build());
@@ -81,7 +81,7 @@ public class AuthorizationService {
     }
 
     private void authenticate(String login, String password) {
-        var user = userRepository.getUser(login);
+        var user = userDao.getUser(login);
         var hashedPassword = PasswordUtils.hash(password);
         if ( user == null || !user.getHashedPassword()
                 .equals(hashedPassword) ) {

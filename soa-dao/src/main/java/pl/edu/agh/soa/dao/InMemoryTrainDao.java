@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.repository;
+package pl.edu.agh.soa.dao;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.edu.agh.soa.model.RailwayCarriage;
@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.toList;
 
 @Stateful
 @Slf4j
-public class InMemoryTrainRepositoryImpl implements TrainRepository {
+public class InMemoryTrainDao implements TrainDao {
 
     private static final Map<Long, Train> trains = new HashMap<>();
 

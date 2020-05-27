@@ -1,8 +1,8 @@
-package pl.edu.agh.soa.repository;
+package pl.edu.agh.soa.dao;
 
 import pl.edu.agh.soa.model.User;
 
-public interface UserRepository {
+public interface UserDao {
 
     User getUser(String login);
 

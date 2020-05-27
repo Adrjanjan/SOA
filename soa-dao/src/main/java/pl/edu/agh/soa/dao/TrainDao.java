@@ -1,4 +1,4 @@
-package pl.edu.agh.soa.repository;
+package pl.edu.agh.soa.dao;
 
 import pl.edu.agh.soa.model.Train;
 
@@ -6,7 +6,7 @@ import javax.ejb.Local;
 import java.util.List;
 
 @Local
-public interface TrainRepository {
+public interface TrainDao {
 
     List<Train> allTrains();
     Train getTrainById(long id);

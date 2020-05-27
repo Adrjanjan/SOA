@@ -1,11 +1,11 @@
-package pl.edu.agh.soa.repository;
+package pl.edu.agh.soa.dao;
 
 import pl.edu.agh.soa.model.User;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryUserRepository implements UserRepository {
+public class InMemoryUserDao implements UserDao {
 
     private static final Map<String, User>  users = new HashMap<>();
 
