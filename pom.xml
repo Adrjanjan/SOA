@@ -23,6 +23,8 @@
         <module>soa-ear</module>
         <module>soap-connector</module>
         <module>rest-connector</module>
+        <module>soa-jpa</module>
+        <module>soa-dao</module>
     </modules>
 
     <properties>

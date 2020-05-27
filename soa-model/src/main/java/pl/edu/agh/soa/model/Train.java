@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -23,4 +24,8 @@ public class Train {
 
     @XmlElement(name = "logoPath")
     private String logoPath;
+
+    @XmlElementWrapper(name = "drives")
+    @XmlElement(name = "drives")
+    private Set<Drive> drive;
 }
