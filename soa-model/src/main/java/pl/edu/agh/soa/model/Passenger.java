@@ -2,8 +2,6 @@ package pl.edu.agh.soa.model;
 
 import lombok.*;
 
-import java.util.List;
-
 @Data
 @Builder
 @ToString
@@ -18,6 +16,4 @@ public class Passenger {
     private String lastName;
 
     private String ticketNumber;
-
-    private List<Drive> drives;
 }

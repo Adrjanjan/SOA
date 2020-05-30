@@ -193,7 +193,7 @@
                         <configuration>
                             <wsdlUrls>
                                 <wsdlUrl>
-                                    http://localhost:8080/soap-api/TrainService?wsdl
+                                    http://localhost:8080/soap-api/SoapTrainService?wsdl
                                 </wsdlUrl>
                             </wsdlUrls>
                             <keep>true</keep>

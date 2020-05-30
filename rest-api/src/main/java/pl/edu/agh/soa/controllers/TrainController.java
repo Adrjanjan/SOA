@@ -1,11 +1,11 @@
-package pl.edu.agh.soa.services;
+package pl.edu.agh.soa.controllers;
 
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import pl.edu.agh.soa.authorization.JWTAuthorization;
 import pl.edu.agh.soa.model.Train;
 import pl.edu.agh.soa.protobuf.CarriagesProto;
-import pl.edu.agh.soa.dao.TrainDao;
+import pl.edu.agh.soa.services.TrainService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -16,10 +16,10 @@ import java.io.IOException;
 @Slf4j
 @Path("/trains")
 @Api("Trains API")
-public class TrainServices {
+public class TrainController {
 
     @Inject
-    TrainDao trainDao;
+    TrainService trainService;
 
     @GET
     @Path("/{id}")
@@ -30,7 +30,7 @@ public class TrainServices {
             @ApiResponse(code = 404, message = "Train not found")
     })
     public Response getTrain(@PathParam("id") long id) {
-        var train = trainDao.getTrainById(id);
+        var train = trainService.getTrain(id);
         var status = train == null ? Response.Status.NOT_FOUND : Response.Status.OK;
         return Response.status(status)
                 .entity(train)
@@ -46,7 +46,7 @@ public class TrainServices {
     })
     public Response getAllTrains() {
         return Response.status(Response.Status.OK)
-                .entity(trainDao.allTrains())
+                .entity(trainService.allTrains())
                 .build();
     }
 
@@ -61,8 +61,10 @@ public class TrainServices {
     })
     @ApiImplicitParam(name="Authorization", value = "Access Token", required = true, paramType = "header", dataTypeClass = String.class)
     public Response addTrain(Train train) {
-        if ( trainDao.getTrainById(train.getId()) == null ) {
-            trainDao.addTrain(train.getId(), train);
+        if (trainService == null) throw new RuntimeException("Train service = null");
+
+        if ( trainService.getTrain(train.getId()) == null ) {
+            trainService.addTrain(train);
             return Response.status(Response.Status.CREATED)
                     .build();
         }
@@ -79,22 +81,22 @@ public class TrainServices {
     })
     public Response getTrainsByNumberOfCarriages(@PathParam("numOfCarriages") int numOfCarriages) {
         return Response.status(Response.Status.OK)
-                .entity(trainDao.getTrainsByNumberOfCarriages(numOfCarriages))
+                .entity(trainService.getTrainsByNumberOfCarriages(numOfCarriages))
                 .build();
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @JWTAuthorization
-    @ApiOperation("Edit train by id")
+    @ApiOperation("Edit train")
     @ApiResponses({
             @ApiResponse(code = 200, message = "Train updated"),
             @ApiResponse(code = 404, message = "Train not found")
     })
     @ApiImplicitParam(name="Authorization", value = "Access Token", required = true, paramType = "header", dataTypeClass = String.class)
-    public Response editTrain(@PathParam("id") long id, Train newTrain) {
-        if ( trainDao.editTrain(id, newTrain) == null ) {
+    public Response editTrain(Train newTrain) {
+        if ( trainService.editTrain(newTrain) == null ) {
             return Response.status(Response.Status.NOT_FOUND)
                     .build();
         }
@@ -112,7 +114,7 @@ public class TrainServices {
     })
     @ApiImplicitParam(name="Authorization", value = "Access Token", required = true, paramType = "header", dataTypeClass = String.class)
     public Response deleteTrain(@PathParam("id") long id) {
-        trainDao.deleteTrain(id);
+        trainService.deleteTrain(id);
         return Response.status(Response.Status.OK)
                 .build();
     }
@@ -120,7 +122,7 @@ public class TrainServices {
     @POST
     @Path("/mock")
     public void mockData() {
-        trainDao.mockData();
+        trainService.mockData();
     }
 
     @GET
@@ -131,7 +133,7 @@ public class TrainServices {
             @ApiResponse(code = 404, message = "Student with this id is not found or logo is not found"),
             @ApiResponse(code = 500, message = "Server error, try later") })
     public Response getTrainIcon(@PathParam("id") long id) {
-        final var train = trainDao.getTrainById(id);
+        final var train = trainService.getTrain(id);
         if ( train == null ) {
             return Response.status(Response.Status.NOT_FOUND)
                     .build();
@@ -162,7 +164,7 @@ public class TrainServices {
             @ApiResponse(code = 404, message = "Train not found")
     })
     public Response getCarriages(@PathParam("id") long id) {
-        final var train = trainDao.getTrainById(id);
+        final var train = trainService.getTrain(id);
         if ( train == null || train.getCarriages() == null ) {
             return Response.status(Response.Status.NOT_FOUND)
                     .build();

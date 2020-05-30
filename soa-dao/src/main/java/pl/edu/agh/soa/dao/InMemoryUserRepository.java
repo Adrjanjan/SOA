@@ -2,10 +2,13 @@ package pl.edu.agh.soa.dao;
 
 import pl.edu.agh.soa.model.User;
 
+import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryUserDao implements UserDao {
+@Stateful
+public class InMemoryUserRepository implements UserRepository {
 
     private static final Map<String, User>  users = new HashMap<>();
 

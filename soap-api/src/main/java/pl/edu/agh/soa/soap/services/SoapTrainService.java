@@ -3,8 +3,9 @@ package pl.edu.agh.soa.soap.services;
 import lombok.extern.slf4j.Slf4j;
 import org.jboss.annotation.security.SecurityDomain;
 import org.jboss.ws.api.annotation.WebContext;
+import pl.edu.agh.soa.dao.InMemoryTrainRepository;
 import pl.edu.agh.soa.model.Train;
-import pl.edu.agh.soa.dao.TrainDao;
+import pl.edu.agh.soa.dao.TrainRepository;
 
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.PermitAll;
@@ -29,47 +30,47 @@ import static javax.jws.soap.SOAPBinding.*;
 @SecurityDomain("TrainsManagementDomain")
 @WebContext(authMethod = "BASIC")
 @SOAPBinding(style = Style.RPC, use = Use.LITERAL)
-public class TrainService {
+public class SoapTrainService {
 
     @Inject
-    TrainDao trainDao;
+    InMemoryTrainRepository trainRepository;
 
     @WebMethod
     @RolesAllowed("TrainsManager")
     public void addTrain(@WebParam(name = "id") long id, @WebParam(name = "train") Train train) {
-        if ( trainDao.getTrainById(id) != null ) {
-            trainDao.addTrain(id, train);
+        if ( trainRepository.getTrainById(id) != null ) {
+            trainRepository.addTrain(id, train);
         }
     }
 
     @WebMethod
     @PermitAll
     public List<Train> getTrainsByNumberOfCarriages(@WebParam(name = "numOfCarriages") int numOfCarriages) {
-        return trainDao.getTrainsByNumberOfCarriages(numOfCarriages);
+        return trainRepository.getTrainsByNumberOfCarriages(numOfCarriages);
     }
 
     @WebMethod
     @PermitAll
     public Train getTrain(@WebParam(name = "id") long id) {
-        return trainDao.getTrainById(id);
+        return trainRepository.getTrainById(id);
     }
 
     @WebMethod
     @RolesAllowed("TrainsManager")
     public Train editTrain(@WebParam(name = "id") long id, @WebParam(name = "train") Train newTrain) {
-        return trainDao.editTrain(id, newTrain);
+        return trainRepository.editTrain(id, newTrain);
     }
 
     @WebMethod
     @PermitAll
     public List<Train> getAllTrains() {
-        return trainDao.allTrains();
+        return trainRepository.allTrains();
     }
 
     @WebMethod
     @PermitAll
     public void mockData() {
-        trainDao.mockData();
+        trainRepository.mockData();
     }
 
     @WebMethod
@@ -77,7 +78,7 @@ public class TrainService {
     public String getTrainIconBase64(@WebParam(name = "id") long id) {
         try {
             final var stream = getClass().getClassLoader()
-                    .getResourceAsStream(trainDao.getTrainById(id)
+                    .getResourceAsStream(trainRepository.getTrainById(id)
                             .getLogoPath());
             if ( stream == null ) {
                 return null;

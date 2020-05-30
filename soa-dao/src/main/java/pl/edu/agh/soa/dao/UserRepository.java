@@ -2,7 +2,7 @@ package pl.edu.agh.soa.dao;
 
 import pl.edu.agh.soa.model.User;
 
-public interface UserDao {
+public interface UserRepository {
 
     User getUser(String login);
 

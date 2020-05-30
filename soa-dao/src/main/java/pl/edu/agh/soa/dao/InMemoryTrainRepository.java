@@ -9,31 +9,27 @@ import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
-@Stateful
 @Slf4j
-public class InMemoryTrainDao implements TrainDao {
+@Stateful
+public class InMemoryTrainRepository {
 
     private static final Map<Long, Train> trains = new HashMap<>();
 
-    @Override
     public List<Train> allTrains() {
         log.info("Getting all trains");
         return new ArrayList<>(trains.values());
     }
 
-    @Override
     public Train getTrainById(long id) {
         log.info("Getting train by id: " + id);
         return trains.get(id);
     }
 
-    @Override
     public void addTrain(long id, Train train) {
         log.info("Adding train with id: " + id);
         trains.put(id, train);
     }
 
-    @Override
     public List<Train> getTrainsByNumberOfCarriages(int numOfCarriages) {
         log.info("Getting trains with number of carriages: " + numOfCarriages);
         return trains.values()
@@ -43,7 +39,6 @@ public class InMemoryTrainDao implements TrainDao {
                 .collect(toList());
     }
 
-    @Override
     public Train editTrain(long id, Train newTrain) {
         log.info("Edit train with id: " + id);
         if(trains.get(id) == null){
@@ -77,7 +72,6 @@ public class InMemoryTrainDao implements TrainDao {
         trains.put(1L, t1);
     }
 
-    @Override
     public void deleteTrain(long id) {
         trains.remove(id);
     }
