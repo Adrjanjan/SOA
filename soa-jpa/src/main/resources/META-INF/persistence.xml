@@ -30,6 +30,9 @@
          <property name="hibernate.format_sql" value="true" />
          <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect" />
          <property name="hibernate.generate_statistics" value="true"/>
+
+         <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/soa_trains"/>
+         <property name="hibernate.connection.datasource" value="java:jboss/datasources/soa_trains"/>
       </properties>
    </persistence-unit>
 </persistence>

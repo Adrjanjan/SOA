@@ -75,15 +75,12 @@ public class RestApiClient {
 
     private static void addTrain() {
         final var train = Train.builder()
-                .id(2L)
                 .logoPath("logo.png")
                 .carriages(List.of(RailwayCarriage.builder()
-                        .id(5L)
                         .available(false)
                         .registrationNumber("asdf")
                         .build(),
                         RailwayCarriage.builder()
-                                .id(352L)
                                 .available(false)
                                 .registrationNumber("ethw")
                                 .build()))

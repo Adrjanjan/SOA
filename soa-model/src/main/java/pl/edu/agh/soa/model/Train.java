@@ -15,7 +15,7 @@ import java.util.List;
 public class Train {
 
     @XmlElement(name = "id")
-    private long id;
+    private Long id;
 
     @XmlElementWrapper(name = "carriages")
     @XmlElement(name = "carriages")

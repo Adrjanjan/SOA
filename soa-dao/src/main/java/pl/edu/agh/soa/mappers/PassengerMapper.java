@@ -15,7 +15,6 @@ public class PassengerMapper {
 
     public static pl.edu.agh.soa.entity.Passenger map (Passenger model){
         return pl.edu.agh.soa.entity.Passenger.builder()
-                .id(model.getId())
                 .firstName(model.getFirstName())
                 .lastName(model.getLastName())
                 .ticketNumber(model.getTicketNumber())

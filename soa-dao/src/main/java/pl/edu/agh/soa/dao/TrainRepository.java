@@ -3,8 +3,10 @@ package pl.edu.agh.soa.dao;
 import pl.edu.agh.soa.entity.Train;
 import pl.edu.agh.soa.entity.Train_;
 
+import javax.ejb.Stateless;
 import java.util.List;
 
+@Stateless
 public class TrainRepository extends AbstractRepository<Train> {
 
     @Override

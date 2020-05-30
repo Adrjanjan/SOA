@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class RailwayCarriage {
 
     @XmlElement(name = "id")
-    private long id;
+    private Long id;
 
     @XmlElement(name = "registrationNumber")
     private String registrationNumber;

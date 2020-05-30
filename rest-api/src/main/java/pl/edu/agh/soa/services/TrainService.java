@@ -6,8 +6,8 @@ import pl.edu.agh.soa.mappers.TrainMapper;
 import pl.edu.agh.soa.model.RailwayCarriage;
 import pl.edu.agh.soa.model.Train;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Stateless
 public class TrainService {
 
-    @Inject
+    @EJB
     TrainRepository trainRepository;
 
     public Train getTrain(long id) {
@@ -59,22 +59,18 @@ public class TrainService {
         log.info("Mock data");
 
         var c1 = RailwayCarriage.builder()
-                .id(1L)
                 .available(false)
                 .registrationNumber("RC1")
                 .build();
         var c2 = RailwayCarriage.builder()
-                .id(2L)
                 .available(false)
                 .registrationNumber("RC2")
                 .build();
         var c3 = RailwayCarriage.builder()
-                .id(3L)
                 .available(false)
                 .registrationNumber("RC3")
                 .build();
         var t1 = Train.builder()
-                .id(1L)
                 .logoPath("logo.png")
                 .carriages(Arrays.asList(c1, c2, c3))
                 .build();

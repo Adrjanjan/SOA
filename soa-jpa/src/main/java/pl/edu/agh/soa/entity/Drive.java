@@ -1,11 +1,9 @@
 package pl.edu.agh.soa.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,7 +15,7 @@ import java.util.List;
 public class Drive {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -26,16 +24,19 @@ public class Drive {
     @Column
     private String endCity;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+
+    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name="drive_to_passengers",
             joinColumns = @JoinColumn(name = "drive_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "passenger_id", referencedColumnName = "id")
     )
-    private List<Passenger> passengers;
+    private List<Passenger> passengers = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "train_id", nullable = false)
+    @JoinColumn(name = "train_id", nullable = false, referencedColumnName = "id")
     private Train train;
 
 }

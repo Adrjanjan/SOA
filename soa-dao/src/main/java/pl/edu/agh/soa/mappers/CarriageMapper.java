@@ -12,11 +12,10 @@ public class CarriageMapper {
                 .build();
     }
 
-    public static pl.edu.agh.soa.entity.RailwayCarriage map(RailwayCarriage entity) {
+    public static pl.edu.agh.soa.entity.RailwayCarriage map(RailwayCarriage model) {
         return pl.edu.agh.soa.entity.RailwayCarriage.builder()
-                .registrationNumber(entity.getRegistrationNumber())
-                .available(entity.isAvailable())
-                .id(entity.getId())
+                .registrationNumber(model.getRegistrationNumber())
+                .available(model.isAvailable())
                 .build();
     }
 }

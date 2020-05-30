@@ -1,11 +1,9 @@
 package pl.edu.agh.soa.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,7 +16,7 @@ import java.util.List;
 public class Passenger {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
@@ -30,6 +28,8 @@ public class Passenger {
     @Column
     private String ticketNumber;
 
-    @ManyToMany(mappedBy = "passengers", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<Drive> drives;
+    @Builder.Default
+    @EqualsAndHashCode.Exclude
+    @ManyToMany(mappedBy = "passengers", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Drive> drives = new ArrayList<>();
 }

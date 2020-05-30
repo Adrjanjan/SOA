@@ -2,12 +2,22 @@ package pl.edu.agh.soa.mappers;
 
 import pl.edu.agh.soa.model.Drive;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class DriverMapper {
 
-    public static Drive map(pl.edu.agh.soa.entity.Drive entity){
-        var passengers = entity.getPassengers().stream().map(PassengerMapper::map).collect(Collectors.toList());
+    public static Drive map(pl.edu.agh.soa.entity.Drive entity) {
+        if(entity == null) {
+            return null;
+        }
+        var passengers = Optional.ofNullable(entity.getPassengers())
+                .orElse(List.of())
+                .stream()
+                .map(PassengerMapper::map)
+                .collect(Collectors.toList());
+
         return Drive.builder()
                 .id(entity.getId())
                 .startCity(entity.getStartCity())
@@ -17,16 +27,22 @@ public class DriverMapper {
                 .build();
     }
 
-    public static pl.edu.agh.soa.entity.Drive map(Drive entity){
-        var passengers = entity.getPassengers().stream().map(PassengerMapper::map).collect(Collectors.toList());
+    public static pl.edu.agh.soa.entity.Drive map(Drive model) {
+        if(model == null) {
+            return null;
+        }
+        var passengers = Optional.ofNullable(model.getPassengers())
+                .orElse(List.of())
+                .stream()
+                .map(PassengerMapper::map)
+                .collect(Collectors.toList());
+
         return pl.edu.agh.soa.entity.Drive.builder()
-                .id(entity.getId())
-                .startCity(entity.getStartCity())
-                .endCity(entity.getEndCity())
+                .startCity(model.getStartCity())
+                .endCity(model.getEndCity())
                 .passengers(passengers)
-                .train(TrainMapper.map(entity.getTrain()))
+                .train(TrainMapper.map(model.getTrain()))
                 .build();
     }
-
 
 }

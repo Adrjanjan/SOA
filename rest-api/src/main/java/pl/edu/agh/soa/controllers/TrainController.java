@@ -55,21 +55,12 @@ public class TrainController {
     @Consumes(MediaType.APPLICATION_JSON)
     @JWTAuthorization
     @ApiOperation("Add train")
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "Train created"),
-            @ApiResponse(code = 409, message = "Train with this id already exists")
-    })
+    @ApiResponses(@ApiResponse(code = 201, message = "Train created"))
     @ApiImplicitParam(name="Authorization", value = "Access Token", required = true, paramType = "header", dataTypeClass = String.class)
     public Response addTrain(Train train) {
-        if (trainService == null) throw new RuntimeException("Train service = null");
-
-        if ( trainService.getTrain(train.getId()) == null ) {
             trainService.addTrain(train);
             return Response.status(Response.Status.CREATED)
                     .build();
-        }
-        return Response.status(Response.Status.CONFLICT)
-                .build();
     }
 
     @GET

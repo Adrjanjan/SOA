@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class RailwayCarriage {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "registration_number")
@@ -25,8 +25,10 @@ public class RailwayCarriage {
     @Column
     private boolean available;
 
-    @ManyToOne
-    @JoinColumn(name= "train_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name= "train_id", nullable = false, referencedColumnName = "id")
     private Train train;
+
+
 
 }

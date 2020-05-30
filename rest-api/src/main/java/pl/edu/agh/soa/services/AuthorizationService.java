@@ -8,6 +8,7 @@ import pl.edu.agh.soa.authorization.PasswordUtils;
 import pl.edu.agh.soa.dao.UserRepository;
 import pl.edu.agh.soa.model.User;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.security.Key;
@@ -20,7 +21,8 @@ public class AuthorizationService {
     @Inject
     private KeyGenerator keyGenerator;
 
-    @Inject
+//    @Inject
+    @EJB
     UserRepository userRepository;
 
     public String token(String login, String issuer) {
