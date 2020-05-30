@@ -100,14 +100,14 @@ public class RestApiClient {
     }
 
     private static Train getTrain() {
-        var target = RestApiClient.target.path("trains/2");
+        var target = RestApiClient.target.path("trains/1");
         return target.request()
                 .header(AUTHORIZATION, token)
                 .get(Train.class);
     }
 
     private static void displayTrainIcon(long l) {
-        var target = RestApiClient.target.path("trains/2/logo");
+        var target = RestApiClient.target.path("trains/1/logo");
 
         byte[] icon = target.request()
                 .header(AUTHORIZATION, token)
@@ -130,7 +130,7 @@ public class RestApiClient {
     private static void displayCarriagesFromProtoBuf(long l) {
         var target = RestApiClient.target.path("trains")
                 .register(CarriagesMessageWriter.class)
-                .path("2/carriages");
+                .path("1/carriages");
         System.out.println("Printing Ids of carriages from protobuf");
         final var carriages = target.request()
                 .header(AUTHORIZATION, token)

@@ -30,7 +30,7 @@ import static javax.jws.soap.SOAPBinding.*;
 @SecurityDomain("TrainsManagementDomain")
 @WebContext(authMethod = "BASIC")
 @SOAPBinding(style = Style.RPC, use = Use.LITERAL)
-public class SoapTrainService {
+public class TrainService {
 
     @Inject
     InMemoryTrainRepository trainRepository;
